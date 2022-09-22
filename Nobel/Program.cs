@@ -26,7 +26,36 @@ namespace Nobel
 
         private static void feladat08()
         {
-            // -- Hozzon létre szöveges állományt, amely tartalmazza az összes kiosztott Nobel-díj adataot
+            // -- Hozzon létre szöveges állományt, amely tartalmazza az összes kiosztott Nobel-díj adatait
+            Console.WriteLine("8. feladat: orvosi.txt");
+            
+            List<KiosztottDij> kimenethez = kiosztottDijak;
+            for (int i = 0; i < kimenethez.Count; i++)
+            {
+                for (int j = i+1; j < kimenethez.Count; j++)
+                {
+                    if (kimenethez[i].Ev > kimenethez[j].Ev)
+                    {
+                        KiosztottDij seged = kimenethez[i];
+                        kimenethez[i] = kimenethez[j];
+                        kimenethez[j] = seged;
+                    }
+                }
+            }
+
+            using (StreamWriter sw = new StreamWriter("orvosi.txt"))
+            {
+                foreach (KiosztottDij item in kimenethez)
+                {
+                    if (item.Tipus.Equals("orvosi"))
+                    {
+                        sw.WriteLine($"{item.Ev}:{item.Keresztnev} {item.Vezeteknev}");
+                    }
+                    
+                }
+            }
+
+
         }
 
         private static void feladat07()
@@ -48,7 +77,8 @@ namespace Nobel
             {
                 for (int j = 0; j < kiosztottDijak.Count; j++)
                 {
-                    if (kiosztottDijak[j].Tipus == dijTipusok[i])
+                    //if (kiosztottDijak[j].Tipus == dijTipusok[i])
+                    if (kiosztottDijak[j].Tipus.Equals(dijTipusok[i]))
                     {
                         hanyDijatOsztottakKi[i] += 1;
                     }
