@@ -16,9 +16,63 @@ namespace Nobel
             feladat03();
             feladat04();
             feladat05();
+            feladat06();
+            feladat07();
+            feladat08();
 
             Console.WriteLine("\nProgram vége");
             Console.ReadKey();
+        }
+
+        private static void feladat08()
+        {
+            // -- Hozzon létre szöveges állományt, amely tartalmazza az összes kiosztott Nobel-díj adataot
+        }
+
+        private static void feladat07()
+        {
+            // -- Melyik típusú díjból hány darabot osztotta ki a Nobel-díj történelme folyamán
+            Console.WriteLine("7. feladat:");
+            List<string> dijTipusok = new List<string>();            
+
+            foreach (KiosztottDij dij in kiosztottDijak)
+            {
+                if (!dijTipusok.Contains(dij.Tipus))
+                {
+                    dijTipusok.Add(dij.Tipus);
+                }
+            }
+
+            int[] hanyDijatOsztottakKi = new int[dijTipusok.Count];
+            for (int i = 0; i < dijTipusok.Count; i++)
+            {
+                for (int j = 0; j < kiosztottDijak.Count; j++)
+                {
+                    if (kiosztottDijak[j].Tipus == dijTipusok[i])
+                    {
+                        hanyDijatOsztottakKi[i] += 1;
+                    }
+
+                }
+            }
+
+
+            for (int i = 0; i < dijTipusok.Count; i++)
+            {
+                Console.WriteLine($"\t{dijTipusok[i]}: {hanyDijatOsztottakKi[i]} db");
+            } 
+
+        }
+
+        private static void feladat06()
+        {
+            // -- Írja ki, hogy milyen évben, a Curie család melyik tagja, milyen díjat kapott
+            Console.WriteLine("6. feladat:");            
+            List<KiosztottDij> talalatiLista = kiosztottDijak.FindAll(a => a.Vezeteknev.Contains("Curie"));
+            foreach (KiosztottDij t in talalatiLista)
+            {
+                Console.WriteLine($"\t{t.Ev}: {t.Keresztnev} {t.Vezeteknev} ({t.Tipus})");
+            }
         }
 
         private static void feladat05()
